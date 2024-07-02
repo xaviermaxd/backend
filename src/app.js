@@ -57,16 +57,34 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
+// app.use(cors({
+//     origin: 'http://localhost:4200',
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE']
+// }));
+
+const cors = require('cors');
+
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: 'https://frontend-ak.onrender.com', // Cambia esto a la URL de tu aplicación Angular en Render
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
+
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Middleware para configurar encabezados CORS adicionales
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://frontend-ak.onrender.com');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 // Servir la carpeta de akfotos estáticamente
 app.use('/akfotos', express.static(path.join(__dirname, 'akfotos')));
