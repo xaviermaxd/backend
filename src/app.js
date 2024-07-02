@@ -63,7 +63,7 @@ if (!fs.existsSync(uploadDir)) {
 //     methods: ['GET', 'POST', 'PUT', 'DELETE']
 // }));
 
-const cors = require('cors');
+//const cors = require('cors');
 
 app.use(cors({
     origin: 'https://frontend-ak.onrender.com', // Cambia esto a la URL de tu aplicación Angular en Render
